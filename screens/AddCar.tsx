@@ -1,4 +1,3 @@
-// screens/AddCar.tsx
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
@@ -11,7 +10,6 @@ const AddCar: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.title}>Cadastrar Novo Carro</Text> */}
             {showAlert && <Text style={styles.alert}>Carro cadastrado com sucesso!</Text>}
             <TextInput style={styles.input} placeholder="Modelo" />
             <TextInput style={styles.input} placeholder="Marca" />

@@ -18,10 +18,9 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
         if (selectedCars.length < 3 && !selectedCars.includes(car)) {
             setSelectedCars(prev => {
                 const newSelectedCars = [...prev, car];
-                // Scroll to the end of the list after adding a new car
                 setTimeout(() => {
                     flatListRef.current?.scrollToEnd({ animated: true });
-                }, 100); // Delay to ensure the new item is rendered
+                }, 100);
                 return newSelectedCars;
             });
         }
@@ -78,9 +77,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
             keyExtractor={(item) => item.model}
             contentContainerStyle={styles.container}
             ListFooterComponent={ListFooterComponent}
-            // Remove extra space at the end of the list
             removeClippedSubviews={false}
-            // Important to avoid rendering issues
             initialNumToRender={10}
         />
     );

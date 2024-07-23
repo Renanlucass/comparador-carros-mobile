@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Car } from '../types';  // Importe a interface Car
-import images from '../assets/images';  // Importar o mapeamento de imagens
+import { Car } from '../types';  
+import images from '../assets/images';
 
 interface CarCardProps {
     car: Car;
     onAdd: (car: Car) => void;
 }
 
-// Função auxiliar para obter a imagem do carro
 const getCarImage = (imageName: string) => {
-    return images[imageName] || images['default.jpg']; // Imagem padrão se a imagem específica não for encontrada
+    return images[imageName] || images['default.jpg']; 
 };
 
 const CarCard: React.FC<CarCardProps> = ({ car, onAdd }) => {
