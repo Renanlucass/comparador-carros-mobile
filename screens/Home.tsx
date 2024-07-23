@@ -17,10 +17,10 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
         const subscription = LightSensor.addListener((data: any) => {
             console.log('Sensor Data:', data);
     
-            const newLightLevel = data?.light || 0;
+            const newLightLevel = data?.illuminance || 0;
             setLightLevel(newLightLevel);
     
-            if (newLightLevel < 10) {
+            if (newLightLevel < 50) {
                 setTheme('dark'); 
             } else {
                 setTheme('light');
