@@ -6,24 +6,34 @@ import images from '../assets/images';
 interface CarCardProps {
     car: Car;
     onAdd: (car: Car) => void;
+    theme: 'light' | 'dark';
 }
 
 const getCarImage = (imageName: string) => {
     return images[imageName] || images['default.jpg']; 
 };
 
-const CarCard: React.FC<CarCardProps> = ({ car, onAdd }) => {
+const CarCard: React.FC<CarCardProps> = ({ car, onAdd, theme }) => {
+    const cardStyle = theme === 'dark' ? styles.darkCard : styles.lightCard;
+    const textColor = theme === 'dark' ? styles.darkText : styles.lightText;
+
     return (
-        <View style={styles.card}>
+        <View style={[styles.card, cardStyle]}>
             <View style={styles.imgContainer}>
                 <Image source={getCarImage(car.image)} style={styles.img} />
             </View>
-            <Text style={styles.model}>{car.model}</Text>
-            <Text style={styles.make}>{car.make}</Text>
+            <Text style={[styles.model, textColor]}>{car.model}</Text>
+            <Text style={[styles.make, textColor]}>{car.make}</Text>
             <View style={styles.detailsContainer}>
-                <Text style={styles.details}><Text style={styles.bold}>Ano:</Text> {car.year}</Text>
-                <Text style={styles.details}><Text style={styles.bold}>Preço:</Text> R${car.price}</Text>
-                <Text style={styles.details}><Text style={styles.bold}>Motor:</Text> {car.engine}</Text>
+                <Text style={[styles.details, textColor]}>
+                    <Text style={styles.bold}>Ano:</Text> {car.year}
+                </Text>
+                <Text style={[styles.details, textColor]}>
+                    <Text style={styles.bold}>Preço:</Text> R${car.price}
+                </Text>
+                <Text style={[styles.details, textColor]}>
+                    <Text style={styles.bold}>Motor:</Text> {car.engine}
+                </Text>
             </View>
             <TouchableOpacity style={styles.addButton} onPress={() => onAdd(car)}>
                 <Text style={styles.addButtonText}>Adicionar à Comparação</Text>
@@ -37,8 +47,13 @@ const styles = StyleSheet.create({
         margin: 16,
         borderRadius: 10,
         elevation: 4,
-        backgroundColor: '#ffffff',
         padding: 16,
+    },
+    lightCard: {
+        backgroundColor: '#ffffff',
+    },
+    darkCard: {
+        backgroundColor: '#333333',
     },
     imgContainer: {
         width: '100%',
@@ -55,17 +70,15 @@ const styles = StyleSheet.create({
     model: {
         fontWeight: 'bold',
         fontSize: 20,
-        color: '#333333',
     },
     make: {
-        color: '#666666',
         marginVertical: 8,
     },
     detailsContainer: {
         marginVertical: 8,
     },
     details: {
-        color: '#444444',
+        color:'#333333'
     },
     bold: {
         fontWeight: 'bold',
@@ -82,6 +95,12 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    lightText: {
+        color: '#000000',
+    },
+    darkText: {
+        color: '#ffffff',
     },
 });
 
