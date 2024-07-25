@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useMemo } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import CarCard from '../components/CarCard';
 import ComparisonTable from '../components/ComparisonTable';
 import SearchBar from '../components/Search';
@@ -9,13 +9,8 @@ import useLightTheme from '../hooks/useLigthSensor';
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [selectedCars, setSelectedCars] = useState<any[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const { theme, lightLevel, animation } = useLightTheme(); 
+    const { theme, lightLevel } = useLightTheme(); 
     const flatListRef = useRef<FlatList<any>>(null);
-
-    const backgroundColor = animation.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['#dcdcdc', '#151515']
-    });
 
     const handleSearchChange = useCallback((query: string) => setSearchQuery(query), []);
 
@@ -38,7 +33,6 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
             <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} theme={theme} />
 
             <TouchableOpacity
-
                 style={[styles.addCarButton, theme === 'dark' && styles.addCarButtonDark]}
                 onPress={() => navigation.navigate('AddCar')}
             >
@@ -50,25 +44,20 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
             </Text>
 
         </View>
-
     ), [searchQuery, theme, lightLevel, handleSearchChange, navigation]);
 
     const ListFooterComponent = useCallback(() => selectedCars.length > 0 ? (
         <View style={styles.comparisonContainer}>
-
             <Text style={[styles.comparisonTitle, theme === 'dark' && styles.darkText]}>Comparar Carros Selecionados</Text>
             <ComparisonTable cars={selectedCars} />
             <TouchableOpacity style={styles.resetButton} onPress={resetComparison}>
-
                 <Text style={[styles.resetButtonText, theme === 'dark' && styles.darkText]}>Resetar Comparação</Text>
-
             </TouchableOpacity>
         </View>
-        
     ) : null, [selectedCars, theme, resetComparison]);
 
     return (
-        <Animated.View style={[styles.container, { backgroundColor }]}>
+        <View style={[styles.container, theme === 'dark' && styles.darkBackground]}>
             <FlatList
                 ref={flatListRef}
                 ListHeaderComponent={ListHeaderComponent}
@@ -82,7 +71,7 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                 removeClippedSubviews={false}
                 initialNumToRender={10}
             />
-        </Animated.View>
+        </View>
     );
 };
 
@@ -90,6 +79,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 18,
+    },
+    darkBackground: {
+        backgroundColor: '#151515',
     },
     listContent: {
         paddingBottom: 16,
