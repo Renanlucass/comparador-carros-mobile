@@ -1,67 +1,42 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { LightSensor } from 'expo-sensors';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import CarCard from '../components/CarCard';
 import ComparisonTable from '../components/ComparisonTable';
 import SearchBar from '../components/Search';
 import carsData from '../components/carsData';
+import useLightTheme from '../hooks/useLigthSensor';
 
 const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
     const [selectedCars, setSelectedCars] = useState<any[]>([]);
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const [theme, setTheme] = useState<'light' | 'dark'>('light');
-    const [lightLevel, setLightLevel] = useState<number>(0);
+    const { theme, lightLevel, animation } = useLightTheme(); 
     const flatListRef = useRef<FlatList<any>>(null);
 
-    useEffect(() => {
-        const subscription = LightSensor.addListener((data: any) => {
-            console.log('Sensor Data:', data);
-    
-            const newLightLevel = data?.illuminance || 0;
-            setLightLevel(newLightLevel);
-    
-            if (newLightLevel < 50) {
-                setTheme('dark'); 
-            } else {
-                setTheme('light');
-            }
-        });
+    const backgroundColor = animation.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['#dcdcdc', '#151515']
+    });
 
-        return () => {
-            subscription.remove();
-        };
-    }, []);
+    const handleSearchChange = useCallback((query: string) => setSearchQuery(query), []);
 
-    const handleSearchChange = (query: string) => {
-        setSearchQuery(query);
-    };
-
-    const addCarToComparison = (car: any) => {
+    const addCarToComparison = useCallback((car: any) => {
         if (selectedCars.length < 3 && !selectedCars.includes(car)) {
-            setSelectedCars(prev => {
-                const newSelectedCars = [...prev, car];
-                setTimeout(() => {
-                    flatListRef.current?.scrollToEnd({ animated: true });
-                }, 100);
-                return newSelectedCars;
-            });
+            setSelectedCars(prev => [...prev, car]);
         }
-    };
+    }, [selectedCars]);
 
-    const resetComparison = () => {
-        setSelectedCars([]);
-    };
+    const resetComparison = useCallback(() => setSelectedCars([]), []);
 
-    const filteredCarsData = carsData.filter((car: any) =>
+    const filteredCarsData = useMemo(() => carsData.filter((car: any) =>
         car.model.toLowerCase().includes(searchQuery.toLowerCase()) ||
         car.make.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    ), [searchQuery]);
 
-    const ListHeaderComponent = () => (
+    const ListHeaderComponent = useCallback(() => (
         <View style={styles.header}>
-            <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} />
+            <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} theme={theme} />
             <TouchableOpacity
-                style={styles.addCarButton}
+                style={[styles.addCarButton, theme === 'dark' && styles.addCarButtonDark]}
                 onPress={() => navigation.navigate('AddCar')}
             >
                 <Text style={[styles.addCarButtonText, theme === 'dark' && styles.darkText]}>Cadastrar Novo Carro</Text>
@@ -71,28 +46,20 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                 Nível de Luminosidade: {lightLevel.toFixed(2)}
             </Text>
         </View>
-    );
+    ), [searchQuery, theme, lightLevel, handleSearchChange, navigation]);
 
-    const ListFooterComponent = () => {
-        if (selectedCars.length > 0) {
-            return (
-                <View style={styles.comparisonContainer}>
-                    <Text style={[styles.comparisonTitle, theme === 'dark' && styles.darkText]}>Comparar Carros Selecionados</Text>
-                    <ComparisonTable cars={selectedCars} />
-                    <TouchableOpacity
-                        style={styles.resetButton}
-                        onPress={resetComparison}
-                    >
-                        <Text style={[styles.resetButtonText, theme === 'dark' && styles.darkText]}>Resetar Comparação</Text>
-                    </TouchableOpacity>
-                </View>
-            );
-        }
-        return null;
-    };
+    const ListFooterComponent = useCallback(() => selectedCars.length > 0 ? (
+        <View style={styles.comparisonContainer}>
+            <Text style={[styles.comparisonTitle, theme === 'dark' && styles.darkText]}>Comparar Carros Selecionados</Text>
+            <ComparisonTable cars={selectedCars} />
+            <TouchableOpacity style={styles.resetButton} onPress={resetComparison}>
+                <Text style={[styles.resetButtonText, theme === 'dark' && styles.darkText]}>Resetar Comparação</Text>
+            </TouchableOpacity>
+        </View>
+    ) : null, [selectedCars, theme, resetComparison]);
 
     return (
-        <View style={[styles.container, theme === 'dark' ? styles.darkTheme : styles.lightTheme]}>
+        <Animated.View style={[styles.container, { backgroundColor }]}>
             <FlatList
                 ref={flatListRef}
                 ListHeaderComponent={ListHeaderComponent}
@@ -100,13 +67,13 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
                 renderItem={({ item }) => (
                     <CarCard car={item} onAdd={addCarToComparison} theme={theme} />
                 )}
-                keyExtractor={(item) => item.model}
+                keyExtractor={item => item.model}
                 contentContainerStyle={styles.listContent}
                 ListFooterComponent={ListFooterComponent}
                 removeClippedSubviews={false}
                 initialNumToRender={10}
             />
-        </View>
+        </Animated.View>
     );
 };
 
@@ -135,6 +102,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
     },
+    addCarButtonDark: {
+        backgroundColor: '#ef7d00',
+    },
     addCarButtonText: {
         color: '#ffffff',
         fontSize: 16,
@@ -161,14 +131,6 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         fontSize: 16,
         fontWeight: 'bold',
-    },
-    lightTheme: {
-        backgroundColor: '#ffffff',
-        color: '#000000',
-    },
-    darkTheme: {
-        backgroundColor: '#000000',
-        color: '#ffffff',
     },
     lightLevelText: {
         fontSize: 16,

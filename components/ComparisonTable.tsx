@@ -1,21 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
-
-export interface Car {
-    image: string;
-    model: string;
-    make: string;
-    year: string; 
-    price: string;
-    engine: string;
-    fuelConsumption: number;
-    typeFuel: string;
-    horsepower: number;
-    torque: number;
-    acceleration: number;
-    maxAcceleration: number;
-    transmission: string;
-}
+import { Car } from '../types';
 
 interface Row {
     label: string;
@@ -31,7 +16,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ cars }) => {
         <View style={styles.row}>
             <Text style={styles.cell}>{item.label}</Text>
             {cars.map((car, index) => (
-                <Text key={index} style={styles.cell}>{car[item.key]}</Text>
+                <Text key={index} style={styles.cell}>{String(car[item.key])}</Text>
             ))}
         </View>
     );
@@ -40,13 +25,9 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ cars }) => {
         { label: 'Marca', key: 'make' },
         { label: 'Ano', key: 'year' },
         { label: 'Preço', key: 'price' },
-        { label: 'Motor', key: 'engine' },
-        { label: 'Combustível', key: 'typeFuel' },
         { label: 'Consumo de Combustível', key: 'fuelConsumption' },
         { label: 'Potência', key: 'horsepower' },
-        { label: 'Torque', key: 'torque' },
         { label: 'Aceleração (0-100 km/h)', key: 'acceleration' },
-        { label: 'Aceleração Máxima', key: 'maxAcceleration' },
         { label: 'Transmissão', key: 'transmission' },
     ];
 

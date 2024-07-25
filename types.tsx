@@ -1,15 +1,14 @@
+import { ReactNode } from 'react';
+import { ImageSourcePropType } from 'react-native';
+
 export interface Car {
-    image: string;
-    model: string;
+    model: ReactNode;
     make: string;
-    year: string; 
-    price: string;
-    engine: string;
+    year: number;
+    price: number;
     fuelConsumption: number;
-    typeFuel: string;
     horsepower: number;
-    torque: number;
     acceleration: number;
-    maxAcceleration: number;
     transmission: string;
+    image: ImageSourcePropType;
 }

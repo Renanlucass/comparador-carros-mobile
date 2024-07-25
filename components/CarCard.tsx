@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Car } from '../types';  
-import images from '../assets/images';
+import { Car } from '../types';
 
 interface CarCardProps {
     car: Car;
@@ -9,18 +8,15 @@ interface CarCardProps {
     theme: 'light' | 'dark';
 }
 
-const getCarImage = (imageName: string) => {
-    return images[imageName] || images['default.jpg']; 
-};
-
 const CarCard: React.FC<CarCardProps> = ({ car, onAdd, theme }) => {
     const cardStyle = theme === 'dark' ? styles.darkCard : styles.lightCard;
     const textColor = theme === 'dark' ? styles.darkText : styles.lightText;
+    const addButtonColor = theme === 'dark' ? { backgroundColor: '#ef7d00' } : { backgroundColor: '#003366' };
 
     return (
         <View style={[styles.card, cardStyle]}>
             <View style={styles.imgContainer}>
-                <Image source={getCarImage(car.image)} style={styles.img} />
+                <Image source={car.image} style={styles.img} />
             </View>
             <Text style={[styles.model, textColor]}>{car.model}</Text>
             <Text style={[styles.make, textColor]}>{car.make}</Text>
@@ -32,10 +28,10 @@ const CarCard: React.FC<CarCardProps> = ({ car, onAdd, theme }) => {
                     <Text style={styles.bold}>Preço:</Text> R${car.price}
                 </Text>
                 <Text style={[styles.details, textColor]}>
-                    <Text style={styles.bold}>Motor:</Text> {car.engine}
+                    <Text style={styles.bold}>Transmissão:</Text> {car.transmission}
                 </Text>
             </View>
-            <TouchableOpacity style={styles.addButton} onPress={() => onAdd(car)}>
+            <TouchableOpacity style={[styles.addButton, addButtonColor]} onPress={() => onAdd(car)}>
                 <Text style={styles.addButtonText}>Adicionar à Comparação</Text>
             </TouchableOpacity>
         </View>
@@ -44,7 +40,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, onAdd, theme }) => {
 
 const styles = StyleSheet.create({
     card: {
-        margin: 16,
+        margin: 25,
         borderRadius: 10,
         elevation: 4,
         padding: 16,
@@ -78,18 +74,17 @@ const styles = StyleSheet.create({
         marginVertical: 8,
     },
     details: {
-        color:'#333333'
+        color: '#333333',
     },
     bold: {
         fontWeight: 'bold',
     },
     addButton: {
-        backgroundColor: '#003366',
         borderRadius: 25,
         paddingVertical: 12,
         paddingHorizontal: 24,
         alignItems: 'center',
-        marginTop: 16,
+        marginTop: 15,
     },
     addButtonText: {
         color: '#ffffff',

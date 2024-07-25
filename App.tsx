@@ -5,7 +5,7 @@ import StackNavigator from './navigators/StackNavigator';
 const App: React.FC = () => {
     return (
         <NavigationContainer>
-            <StackNavigator />
+            <StackNavigator theme={'light'}/>
         </NavigationContainer>
     );
 };

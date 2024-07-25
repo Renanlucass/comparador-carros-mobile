@@ -1,230 +1,169 @@
 const carsData = [
-    {
+  {
       model: 'X6 M Competition',
       make: 'BMW',
       year: '2024',
-      price: ' 1.217.950',
-      engine: 'M Power 4.4L VVT Bi-Turbo',
+      price: '1.217.950',
       fuelConsumption: 7.4,
-      typeFuel: 'Gasolina',
       horsepower: 625,
-      torque: 750,
       acceleration: 3.9,
-      maxAcceleration: 290,
       transmission: 'Automática',
-      image: 'bmw-x6.jpg'
-    },
-    {
+      image: require('../assets/cars/bmw-x6.jpg')
+  },
+  {
       model: 'Civic Hatch Type R',
       make: 'Honda',
       year: '2023',
-      price: ' 429.000',
-      engine: 'VTEC DI 2.0L VVT Turbo',
+      price: '429.000',
       fuelConsumption: 11.1,
-      typeFuel: 'Gasolina',
       horsepower: 297,
-      torque: 420,
       acceleration: 5.4,
-      maxAcceleration: 275,
       transmission: 'Manual',
-      image: 'civic-typeR.jpg'
-    },
-    {
+      image: require('../assets/cars/civic-typeR.jpg') 
+  },
+  {
       model: 'F-Type Coupe',
       make: 'Jaguar',
-      price: ' 559.990',
       year: '2023 - 2024',
-      engine: 'Ingenium P300 2.0L VVT Turbo',
+      price: '559.990',
       fuelConsumption: 9.7,
-      typeFuel: 'Gasolina',
       horsepower: 300,
-      torque: 400,
       acceleration: 5.9,
-      maxAcceleration: 250,
       transmission: 'Automática',
-      image: 'jaguar.jpg'
-    },
-    {
+      image: require('../assets/cars/jaguar.jpg') 
+  },
+  {
       model: 'Accord Touring 2.0T',
       make: 'Honda',
-      price: ' 187.182',
       year: '2018 - 2020',
-      engine: 'i-VTEC 2.0L VVT Turbo',
+      price: '187.182',
       fuelConsumption: 12.0,
-      typeFuel: 'Gasolina',
       horsepower: 203,
-      torque: 370,
       acceleration: 5.7,
-      maxAcceleration: 203,
       transmission: 'Automática',
-      image: 'honda-accord.jpg'
-    },
-    {
+      image: require('../assets/cars/honda-accord.jpg') 
+  },
+  {
       model: 'Range R. Velar R-Dynamic',
       make: 'Land Rover',
-      price: ' 681.950',
       year: '2023 - 2024',
-      engine: 'Ingenium P400e 2.0L VVT Turbo',
+      price: '681.950',
       fuelConsumption: 9.4,
-      typeFuel: 'Gasolina / Eletricidade',
       horsepower: '300 (G) / 116 (H) = 404',
-      torque: '400 (G) / 280 (H) = 650',
       acceleration: 5.4,
-      maxAcceleration: 209,
       transmission: 'Automática',
-      image: '/land-rover.jpg'
-    },
-    {
+      image: require('../assets/cars/land-rover.jpg') 
+  },
+  {
       model: 'Renegade 1.3 16v T270',
       make: 'Jeep',
-      price: ' 136.912',
       year: '2023 - 2024',
-      engine: 'GSE T270 1.3L Flex VVT Turbo',
+      price: '136.912',
       fuelConsumption: '9.1(E) / 12,8(G)',
-      typeFuel: 'Etanol / Gasolina',
       horsepower: '185(E) / 180(G)',
-      torque: 269,
       acceleration: '8,7 (E) / 8,8 (G)',
-      maxAcceleration: '210 (E) / 208 (G)',
       transmission: 'Automática',
-      image: '/renegade.jpg'
-    },
-    {
+      image: require('../assets/cars/renegade.jpg') 
+  },
+  {
       model: 'Lancer 2.0 16v',
       make: 'Mitsubishi',
-      price: ' 49.000',
       year: '2012 - 2017',
-      engine: 'Mivec 2.0L VVT Aspirado',
+      price: '49.000',
       fuelConsumption: 10.2,
-      typeFuel: 'Gasolina',
       horsepower: 160,
-      torque: 197,
       acceleration: 9.8,
-      maxAcceleration: 200,
       transmission: 'Manual',
-      image: '/lancer.jpg'
-    },
-    {
+      image: require('../assets/cars/lancer.jpg') 
+  },
+  {
       model: 'S 500',
       make: 'Mercedes-Benz',
-      price: ' 521.052',
-      year: ' 2016-2017',
-      engine: '4.7L VVT Bi-Turbo',
+      year: '2016-2017',
+      price: '521.052',
       fuelConsumption: 9.0,
-      typeFuel: 'Gasolina',
       horsepower: 456,
-      torque: 700,
       acceleration: 4.8,
-      maxAcceleration: 250,
       transmission: 'Automática',
-      image: '/mercedes.jpg'
-    },
-    {
+      image: require('../assets/cars/mercedes.jpg') 
+  },
+  {
       model: 'Panamera 4 E-Hybrid',
       make: 'Porsche',
-      price: ' 655.000',
       year: '2020 - 2023',
-      engine: 'EA839 2.9L VVT Turbo / Elétrico',
+      price: '655.000',
       fuelConsumption: 21.3,
-      typeFuel: 'Gasolina / Eletricidade',
       horsepower: '462 cv (330 cv gasolina + 136 cv elétrico)',
-      torque: 700,
       acceleration: 4.4,
-      maxAcceleration: 280,
-      transmission: 'DCT Automatizada',
-      image: '/panamera.jpg'
-    },
-    {
+      transmission: 'Automática',
+      image: require('../assets/cars/panamera.jpg') 
+  },
+  {
       model: 'GT 63 S AMG',
       make: 'Mercedes-Benz',
-      price: ' 1.209.000',
       year: '2019 - 2021',
-      engine: 'AMG 4.0L VVT Bi-Turbo',
+      price: '1.209.000',
       fuelConsumption: 9.2,
-      typeFuel: 'Gasolina',
       horsepower: 639,
-      torque: 900,
       acceleration: 3.2,
-      maxAcceleration: 315,
-      transmission: 'DSG Automatizado',
-      image: '/mercedes-gt.jpg'
-    },  
-    {
+      transmission: 'Automática',
+      image: require('../assets/cars/mercedes-gt.jpg') 
+  },
+  {
       model: 'Mustang Mach 1',
       make: 'Ford',
-      price: ' 559.900',
       year: '2021 - 2023',
-      engine: 'Coyote 5.0L VVT Aspirado',
+      price: '559.900',
       fuelConsumption: 8.9,
-      typeFuel: 'Gasolina',
       horsepower: 483,
-      torque: 556,
       acceleration: 4.3,
-      maxAcceleration: 250,
       transmission: 'Automática',
-      image: '/mach1.jpg'
-    },
-    {
+      image: require('../assets/cars/mach1.jpg') 
+  },
+  {
       model: 'Mustang GT',
       make: 'Ford',
-      price: ' 529.000',
       year: '2024',
-      engine: 'Coyote 5.0L VVT Aspirado',
+      price: '529.000',
       fuelConsumption: 8.8,
-      typeFuel: 'Gasolina',
       horsepower: 488,
-      torque: 575,
       acceleration: 4.3,
-      maxAcceleration: 250,
       transmission: 'Automática',
-      image: '/mustang-gt.jpg'
-    },
-    {
+      image: require('../assets/cars/mustang-gt.jpg') 
+  },
+  {
       model: 'A3 Sedan 1.8 TFSi',
       make: 'Audi',
-      price: ' 89.577',
       year: '2014 - 2015',
-      engine: 'TFSi 1.8L VVT Turbo',
+      price: '89.577',
       fuelConsumption: 14.0,
-      typeFuel: 'Gasolina',
       horsepower: 180,
-      torque: 260,
       acceleration: 7.3,
-      maxAcceleration: 235,
-      transmission: 'DSG Automatizado',
-      image: '/audi.jpg'
-    },  
-    {
+      transmission: 'Automática',
+      image: require('../assets/cars/audi.jpg') 
+  },
+  {
       model: 'TTS 2.0 TFSi',
       make: 'Audi',
-      price: ' 323.501',
       year: '2016 - 2018',
-      engine: 'TFSi 2.0L VVT Turbo',
+      price: '323.501',
       fuelConsumption: 10.7,
-      typeFuel: 'Gasolina',
       horsepower: 286,
-      torque: 377,
       acceleration: 4.7,
-      maxAcceleration: 250,
-      transmission: 'DSG Automatizada',
-      image: '/audi-tt.jpg'
-    },  
-    {
+      transmission: 'Automática',
+      image: require('../assets/cars/audi-tt.jpg')
+  },
+  {
       model: 'WRX STi 2.5T',
       make: 'Subaru',
-      price: ' 308.900',
       year: '2019 - 2021',
-      engine: 'Boxer DIT 2.5L VVT Turbo',
+      price: '308.900',
       fuelConsumption: 7.9,
-      typeFuel: 'Gasolina',
       horsepower: 310,
-      torque: 425,
       acceleration: 5.2,
-      maxAcceleration: 250,
       transmission: 'Manual',
-      image: '/subaru.jpg'
-    }  
-  ];
-  
-  export default carsData;
-  
+      image: require('../assets/cars/subaru.jpg')   
+  }
+];
+
+export default carsData;

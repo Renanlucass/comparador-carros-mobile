@@ -1,4 +1,8 @@
-const images: { [key: string]: any } = {
+type Images = {
+    [key: string]: any;
+};
+
+const images: Images = {
     'bmw-x6.jpg': require('./cars/bmw-x6.jpg'),
     'civic-typeR.jpg': require('./cars/civic-typeR.jpg'),
     'jaguar.jpg': require('./cars/jaguar.jpg'),
@@ -14,7 +18,6 @@ const images: { [key: string]: any } = {
     'audi.jpg': require('./cars/audi.jpg'),
     'audi-tt.jpg': require('./cars/audi-tt.jpg'),
     'subaru.jpg': require('./cars/subaru.jpg'),
-    'default.jpg': require('./cars/default.webp') 
 };
 
 export default images;

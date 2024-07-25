@@ -5,16 +5,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 interface SearchBarProps {
     searchQuery: string;
     handleSearchChange: (query: string) => void;
+    theme: 'light' | 'dark';
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, handleSearchChange }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ searchQuery, handleSearchChange, theme }) => {
+    const isDarkTheme = theme === 'dark';
+
     return (
-        <View style={styles.container}>
-            <Icon name="search" size={20} color="#003366" style={styles.icon} />
+        <View style={[styles.container, isDarkTheme ? styles.darkContainer : styles.lightContainer]}>
+            <Icon name="search" size={20} color={isDarkTheme ? '#ffffff' : '#003366'} style={styles.icon} />
             <TextInput
-                style={styles.input}
+                style={[styles.input, isDarkTheme ? styles.darkInput : styles.lightInput]}
                 placeholder="Pesquisar carros..."
-                placeholderTextColor="#999"
+                placeholderTextColor={isDarkTheme ? '#ccc' : '#999'}
                 value={searchQuery}
                 onChangeText={handleSearchChange}
             />
@@ -26,7 +29,6 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#ffffff',
         borderRadius: 25,
         paddingHorizontal: 16,
         paddingVertical: 8,
@@ -36,7 +38,12 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 2,
         marginVertical: 16,
-        top: -10,
+    },
+    lightContainer: {
+        backgroundColor: '#ffffff',
+    },
+    darkContainer: {
+        backgroundColor: '#565656',
     },
     icon: {
         marginRight: 8,
@@ -45,7 +52,12 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 40,
         fontSize: 16,
+    },
+    lightInput: {
         color: '#333',
+    },
+    darkInput: {
+        color: '#ffffff',
     },
 });
 
