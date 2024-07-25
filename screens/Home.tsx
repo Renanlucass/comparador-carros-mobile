@@ -34,28 +34,37 @@ const Home: React.FC<{ navigation: any }> = ({ navigation }) => {
 
     const ListHeaderComponent = useCallback(() => (
         <View style={styles.header}>
+
             <SearchBar searchQuery={searchQuery} handleSearchChange={handleSearchChange} theme={theme} />
+
             <TouchableOpacity
+
                 style={[styles.addCarButton, theme === 'dark' && styles.addCarButtonDark]}
                 onPress={() => navigation.navigate('AddCar')}
             >
                 <Text style={[styles.addCarButtonText, theme === 'dark' && styles.darkText]}>Cadastrar Novo Carro</Text>
             </TouchableOpacity>
-            <Text style={[styles.subheader, theme === 'dark' && styles.darkText]}>Escolha até 3 carros para comparar</Text>
+
             <Text style={[styles.lightLevelText, theme === 'dark' && styles.darkText]}>
                 Nível de Luminosidade: {lightLevel.toFixed(2)}
             </Text>
+
         </View>
+
     ), [searchQuery, theme, lightLevel, handleSearchChange, navigation]);
 
     const ListFooterComponent = useCallback(() => selectedCars.length > 0 ? (
         <View style={styles.comparisonContainer}>
+
             <Text style={[styles.comparisonTitle, theme === 'dark' && styles.darkText]}>Comparar Carros Selecionados</Text>
             <ComparisonTable cars={selectedCars} />
             <TouchableOpacity style={styles.resetButton} onPress={resetComparison}>
+
                 <Text style={[styles.resetButtonText, theme === 'dark' && styles.darkText]}>Resetar Comparação</Text>
+
             </TouchableOpacity>
         </View>
+        
     ) : null, [selectedCars, theme, resetComparison]);
 
     return (
@@ -88,11 +97,6 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 10,
         alignItems: 'center',
-    },
-    subheader: {
-        fontSize: 18,
-        marginBottom: 10,
-        textAlign: 'center',
     },
     addCarButton: {
         backgroundColor: '#003366',

@@ -15,25 +15,34 @@ const CarCard: React.FC<CarCardProps> = ({ car, onAdd, theme }) => {
 
     return (
         <View style={[styles.card, cardStyle]}>
+
             <View style={styles.imgContainer}>
                 <Image source={car.image} style={styles.img} />
             </View>
+
             <Text style={[styles.model, textColor]}>{car.model}</Text>
             <Text style={[styles.make, textColor]}>{car.make}</Text>
+
             <View style={styles.detailsContainer}>
+
                 <Text style={[styles.details, textColor]}>
                     <Text style={styles.bold}>Ano:</Text> {car.year}
                 </Text>
+
                 <Text style={[styles.details, textColor]}>
                     <Text style={styles.bold}>Preço:</Text> R${car.price}
                 </Text>
+
                 <Text style={[styles.details, textColor]}>
                     <Text style={styles.bold}>Transmissão:</Text> {car.transmission}
                 </Text>
+
             </View>
+
             <TouchableOpacity style={[styles.addButton, addButtonColor]} onPress={() => onAdd(car)}>
                 <Text style={styles.addButtonText}>Adicionar à Comparação</Text>
             </TouchableOpacity>
+            
         </View>
     );
 };
